@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>柔光句·正能量卡</title>
+    <style>
+        /* 🌿 莫兰迪低饱和底色 —— 暖白基调 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f3ede8;  /* 暖调米白 */
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            /* 柔和微质感背景 —— 极浅的暖灰层次 */
+            background-image: radial-gradient(circle at 10% 30%, rgba(230, 215, 200, 0.3) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 70%, rgba(210, 190, 175, 0.2) 0%, transparent 35%);
+        }
+
+        .container {
+            max-width: 480px;  /* 手机舒适宽度 */
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        /* 🥛 玻璃态卡片 —— 核心视觉 */
+        .quote-card {
+            width: 100%;
+            background: rgba(255, 247, 240, 0.65);  /* 极浅杏色玻璃 */
+            backdrop-filter: blur(20px);            /* 玻璃模糊核心 */
+            -webkit-backdrop-filter: blur(20px);    /* iOS 兼容 */
+            border-radius: 48px 48px 48px 24px;     /* 非对称圆润，卡通感 */
+            padding: 40px 28px;
+            box-shadow: 0 20px 35px -8px rgba(140, 110, 90, 0.08),    /* 柔和落地阴影 */
+                        0 8px 12px -6px rgba(120, 90, 70, 0.02),
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.5);     /* 微光边缘，强化玻璃质感 */
+            border: none;
+            transition: all 0.25s ease;
+            word-wrap: break-word;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 正能量文字 —— 典雅、松弛、呼吸感 */
+        .quote-text {
+            font-size: 26px;
+            line-height: 1.4;
+            font-weight: 450;          /* 半细体，干净 */
+            color: #4f4942;           /* 深灰褐，低对比，不刺眼 */
+            letter-spacing: 0.01em;
+            text-align: center;
+            width: 100%;
+            font-family: 'Quicksand', 'Georgia', 'Times New Roman', serif;  /* 混入手写感衬线 */
+            text-shadow: 0 2px 5px rgba(160, 130, 100, 0.06);
+        }
+
+        /* 🖱️ 大按钮 —— 柔软、蓬松、想按压 */
+        .action-button {
+            background: rgba(235, 220, 210, 0.8);   /* 低饱和肉粉 */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: none;
+            border-radius: 100px;       /* 超椭圆，胶囊按钮 */
+            padding: 22px 48px;
+            font-size: 24px;
+            font-weight: 550;
+            color: #5a534c;            /* 暖灰褐 */
+            letter-spacing: 6px;        /* 宽松字距，现代感 */
+            box-shadow: 0 15px 25px -8px rgba(150, 120, 100, 0.15), 
+                        0 6px 10px -4px rgba(100, 80, 60, 0.02),
+                        inset 0 -2px 0 rgba(0,0,0,0.02),
+                        inset 0 0 0 1.5px rgba(255, 255, 255, 0.8);  /* 白边提亮 */
+            cursor: pointer;
+            transition: all 0.15s ease;
+            width: 100%;
+            max-width: 320px;
+            margin-top: 8px;
+            /* 蓬松按压感 */
+            transform: scale(1);
+        }
+
+        .action-button:active {
+            transform: scale(0.97);      /* 按下微缩 */
+            box-shadow: 0 8px 15px -6px rgba(120, 90, 70, 0.12), 
+                        inset 0 2px 8px rgba(0,0,0,0.02);
+            background: rgba(225, 205, 190, 0.85);
+        }
+
+        /* 小彩蛋：底栏可爱装饰 */
+        .tiny-credit {
+            margin-top: 20px;
+            color: #b3a69c;
+            font-size: 14px;
+            font-weight: 350;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* 语录库 —— 轻盈入场 */
+        @keyframes softGlow {
+            0% { opacity: 0.7; transform: translateY(4px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: softGlow 0.4s cubic-bezier(0.15, 0.85, 0.3, 1.05);
+        }
+
+        /* 手写字体 fallback */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@350;450;550&display=swap');
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 🥛 玻璃态卡片 显示随机句子 -->
+        <div class="quote-card" id="quoteCard">
+            <div class="quote-text" id="quoteDisplay">
+                今日份的柔光句子
+            </div>
+        </div>
+
+        <!-- 🖱️ 大按钮 —— 你按一下，世界就亮一句 -->
+        <button class="action-button" id="generateBtn">
+            ✦ 轻触 ✦
+        </button>
+        
+        <div class="tiny-credit">
+            日常哲思 · 柔软供应
+        </div>
+    </div>
+
+    <script>
+        // 🌟 正能量语录库 —— 低饱和情绪，不油腻，不鸡汤
+        const quoteLibrary = [
+            "你今天也很好看，顺便温柔。",
+            "慢慢来，太阳会找到云的。",
+            "柔软的心，终会遇见柔软的事。",
+            "记得休息，记得开心。",
+            "你已经做得很好了。",
+            "风很慢，所以你可以慢慢走。",
+            "今天的不开心，到此为止。",
+            "微小而确实的幸福，存在。",
+            "像猫咪一样，只取悦自己。",
+            "你本身，就是一份礼物。",
+            "允许一切，如其所是。",
+            "按时长大，不定期可爱。",
+            "不是所有事，都必须有意义。",
+            "今天也要拥抱一点无用之美。",
+            "你比想象中，更值得被温柔对待。"
+        ];
+
+        // 🎲 获取DOM元素
+        const quoteDisplay = document.getElementById('quoteDisplay');
+        const generateBtn = document.getElementById('generateBtn');
+        const quoteCard = document.getElementById('quoteCard');
+
+        // ✨ 随机抽取一句话，并添加淡入动画
+        function generateRandomQuote() {
+            // 随机索引
+            const randomIndex = Math.floor(Math.random() * quoteLibrary.length);
+            const newQuote = quoteLibrary[randomIndex];
+            
+            // 更新文字
+            quoteDisplay.textContent = newQuote;
+            
+            // 添加淡入动画（先移除再添加，保证每次点击都触发）
+            quoteCard.classList.remove('fade-in');
+            void quoteCard.offsetWidth;  // 强制重绘，技巧
+            quoteCard.classList.add('fade-in');
+        }
+
+        // 初次加载时显示一句随机语录
+        generateRandomQuote();
+
+        // 🖱️ 按钮点击事件
+        generateBtn.addEventListener('click', generateRandomQuote);
+
+        // （可选）移动端触摸反馈优化，防止双击缩放干扰
+        generateBtn.addEventListener('touchstart', function(e) {
+            // 只需保留默认视觉反馈，无需额外代码
+        }, { passive: true });
+
+    </script>
+</body>
+</html>
