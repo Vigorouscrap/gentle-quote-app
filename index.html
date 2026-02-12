@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>柔光句·正能量卡</title>
+    <title>柔光句 · 泡泡花园</title>
     <style>
-        /* 🌿 莫兰迪低饱和底色 —— 暖白基调 */
+        /* 🌿 莫兰迪低饱和基底 —— 暖调米白，带极淡渐变 */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #f3ede8;  /* 暖调米白 */
+            background: linear-gradient(145deg, #f7f1ea 0%, #efe7df 100%);
             font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             display: flex;
             align-items: center;
@@ -21,13 +21,64 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            /* 柔和微质感背景 —— 极浅的暖灰层次 */
-            background-image: radial-gradient(circle at 10% 30%, rgba(230, 215, 200, 0.3) 0%, transparent 30%),
-                              radial-gradient(circle at 90% 70%, rgba(210, 190, 175, 0.2) 0%, transparent 35%);
+            position: relative;
+            overflow-x: hidden;
         }
 
+        /* 🫧 泡泡容器 —— 全屏浮动画布 */
+        .bubble-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;  /* 泡泡不阻挡点击 */
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* 🫧 单个泡泡 —— 玻璃态核心元素 */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 245, 235, 0.28);  /* 极透玻璃白 */
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 15px rgba(255, 255, 255, 0.6),  /* 内发光，玻璃感 */
+                0 8px 25px rgba(160, 130, 100, 0.08),     /* 外阴影，轻盈 */
+                0 0 0 0.5px rgba(255, 255, 255, 0.3);      /* 极细边缘光 */
+            animation: floatSlow linear infinite;
+            will-change: transform, width, height, opacity;
+        }
+
+        /* 🌊 漂浮动画 —— 时大时小 + 上下左右飘移 */
+        @keyframes floatSlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translate(4%, -3%) scale(1.15);
+                opacity: 0.45;
+            }
+            50% {
+                transform: translate(-2%, 5%) scale(0.9);
+                opacity: 0.35;
+            }
+            75% {
+                transform: translate(-5%, -2%) scale(1.1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        /* 主内容层 —— 置于泡泡之上 */
         .container {
-            max-width: 480px;  /* 手机舒适宽度 */
+            max-width: 480px;
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -35,107 +86,148 @@
             align-items: center;
             justify-content: center;
             gap: 32px;
+            position: relative;
+            z-index: 10;  /* 确保在泡泡上方 */
         }
 
-        /* 🥛 玻璃态卡片 —— 核心视觉 */
+        /* 🥛 玻璃态卡片 —— 强化微光边缘 */
         .quote-card {
             width: 100%;
-            background: rgba(255, 247, 240, 0.65);  /* 极浅杏色玻璃 */
-            backdrop-filter: blur(20px);            /* 玻璃模糊核心 */
-            -webkit-backdrop-filter: blur(20px);    /* iOS 兼容 */
-            border-radius: 48px 48px 48px 24px;     /* 非对称圆润，卡通感 */
+            background: rgba(255, 247, 240, 0.7);  /* 稍提高不透明度，在泡泡前更清晰 */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 48px 48px 48px 24px;
             padding: 40px 28px;
-            box-shadow: 0 20px 35px -8px rgba(140, 110, 90, 0.08),    /* 柔和落地阴影 */
-                        0 8px 12px -6px rgba(120, 90, 70, 0.02),
-                        inset 0 0 0 1px rgba(255, 255, 255, 0.5);     /* 微光边缘，强化玻璃质感 */
+            box-shadow: 
+                0 25px 40px -12px rgba(140, 110, 90, 0.12),
+                0 8px 15px -8px rgba(120, 90, 70, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+                inset 0 0 20px rgba(255, 255, 245, 0.4);  /* 增加内微光 */
             border: none;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
             word-wrap: break-word;
             min-height: 220px;
             display: flex;
             align-items: center;
+            position: relative;
+            /* 卡片自身也有极淡的闪烁光晕 */
+            animation: cardGlow 8s ease-in-out infinite;
         }
 
-        /* 正能量文字 —— 典雅、松弛、呼吸感 */
+        @keyframes cardGlow {
+            0%, 100% { box-shadow: 0 25px 40px -12px rgba(140, 110, 90, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.7), inset 0 0 20px rgba(255, 255, 245, 0.3); }
+            50% { box-shadow: 0 30px 50px -12px rgba(150, 120, 100, 0.18), inset 0 0 0 1.5px rgba(255, 255, 255, 0.9), inset 0 0 30px rgba(255, 245, 235, 0.6); }
+        }
+
         .quote-text {
             font-size: 26px;
             line-height: 1.4;
-            font-weight: 450;          /* 半细体，干净 */
-            color: #4f4942;           /* 深灰褐，低对比，不刺眼 */
+            font-weight: 450;
+            color: #4f4942;
             letter-spacing: 0.01em;
             text-align: center;
             width: 100%;
-            font-family: 'Quicksand', 'Georgia', 'Times New Roman', serif;  /* 混入手写感衬线 */
-            text-shadow: 0 2px 5px rgba(160, 130, 100, 0.06);
+            font-family: 'Quicksand', 'Georgia', 'Times New Roman', serif;
+            text-shadow: 0 2px 8px rgba(170, 140, 110, 0.1);
+            position: relative;
+            z-index: 2;
         }
 
-        /* 🖱️ 大按钮 —— 柔软、蓬松、想按压 */
+        /* 🖱️ 大按钮 —— 更蓬松、更有按压欲 */
         .action-button {
-            background: rgba(235, 220, 210, 0.8);   /* 低饱和肉粉 */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(238, 222, 212, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: none;
-            border-radius: 100px;       /* 超椭圆，胶囊按钮 */
-            padding: 22px 48px;
+            border-radius: 120px;
+            padding: 22px 52px;
             font-size: 24px;
             font-weight: 550;
-            color: #5a534c;            /* 暖灰褐 */
-            letter-spacing: 6px;        /* 宽松字距，现代感 */
-            box-shadow: 0 15px 25px -8px rgba(150, 120, 100, 0.15), 
-                        0 6px 10px -4px rgba(100, 80, 60, 0.02),
-                        inset 0 -2px 0 rgba(0,0,0,0.02),
-                        inset 0 0 0 1.5px rgba(255, 255, 255, 0.8);  /* 白边提亮 */
+            color: #5a4e45;
+            letter-spacing: 8px;
+            box-shadow: 
+                0 20px 30px -10px rgba(150, 120, 100, 0.18),
+                0 8px 12px -6px rgba(100, 80, 60, 0.04),
+                inset 0 -2px 0 rgba(0,0,0,0.01),
+                inset 0 0 0 2px rgba(255, 255, 255, 0.9),
+                inset 0 0 15px rgba(255, 250, 240, 0.5);
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
             width: 100%;
             max-width: 320px;
             margin-top: 8px;
-            /* 蓬松按压感 */
             transform: scale(1);
+            position: relative;
+            z-index: 15;
+            /* 蓬松悬浮感 */
+            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .action-button:hover {
+            background: rgba(242, 226, 216, 0.85);
+            box-shadow: 
+                0 25px 35px -10px rgba(150, 120, 100, 0.22),
+                0 8px 15px -6px rgba(100, 80, 60, 0.06),
+                inset 0 -2px 0 rgba(0,0,0,0.01),
+                inset 0 0 0 2px rgba(255, 255, 255, 1),
+                inset 0 0 25px rgba(255, 250, 240, 0.7);
+            transform: scale(1.02);
         }
 
         .action-button:active {
-            transform: scale(0.97);      /* 按下微缩 */
-            box-shadow: 0 8px 15px -6px rgba(120, 90, 70, 0.12), 
-                        inset 0 2px 8px rgba(0,0,0,0.02);
-            background: rgba(225, 205, 190, 0.85);
+            transform: scale(0.96);
+            box-shadow: 
+                0 12px 20px -8px rgba(130, 100, 80, 0.2),
+                inset 0 4px 12px rgba(0,0,0,0.02),
+                inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+            background: rgba(228, 208, 196, 0.8);
         }
 
-        /* 小彩蛋：底栏可爱装饰 */
         .tiny-credit {
             margin-top: 20px;
-            color: #b3a69c;
+            color: #b8a99e;
             font-size: 14px;
             font-weight: 350;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             opacity: 0.6;
+            position: relative;
+            z-index: 15;
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
+            border-radius: 60px;
+            background: rgba(255, 245, 235, 0.2);
         }
 
-        /* 语录库 —— 轻盈入场 */
         @keyframes softGlow {
             0% { opacity: 0.7; transform: translateY(4px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
         .fade-in {
-            animation: softGlow 0.4s cubic-bezier(0.15, 0.85, 0.3, 1.05);
+            animation: softGlow 0.5s cubic-bezier(0.15, 0.85, 0.3, 1.05);
         }
 
-        /* 手写字体 fallback */
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@350;450;550&display=swap');
+
+        /* 响应式微调 */
+        @media (max-width: 400px) {
+            .quote-text { font-size: 22px; }
+            .action-button { padding: 20px 36px; font-size: 22px; letter-spacing: 6px; }
+        }
     </style>
 </head>
 <body>
+    <!-- 🫧 漂浮泡泡群 —— 纯CSS动画，缓慢、时大时小、玻璃质感 -->
+    <div class="bubble-container" id="bubbleContainer"></div>
+
     <div class="container">
-        <!-- 🥛 玻璃态卡片 显示随机句子 -->
         <div class="quote-card" id="quoteCard">
             <div class="quote-text" id="quoteDisplay">
                 今日份的柔光句子
             </div>
         </div>
 
-        <!-- 🖱️ 大按钮 —— 你按一下，世界就亮一句 -->
         <button class="action-button" id="generateBtn">
             ✦ 轻触 ✦
         </button>
@@ -146,7 +238,7 @@
     </div>
 
     <script>
-        // 🌟 正能量语录库 —— 低饱和情绪，不油腻，不鸡汤
+        // 🌟 正能量语录库（保持原味）
         const quoteLibrary = [
             "你今天也很好看，顺便温柔。",
             "慢慢来，太阳会找到云的。",
@@ -165,37 +257,68 @@
             "你比想象中，更值得被温柔对待。"
         ];
 
-        // 🎲 获取DOM元素
         const quoteDisplay = document.getElementById('quoteDisplay');
         const generateBtn = document.getElementById('generateBtn');
         const quoteCard = document.getElementById('quoteCard');
 
-        // ✨ 随机抽取一句话，并添加淡入动画
         function generateRandomQuote() {
-            // 随机索引
             const randomIndex = Math.floor(Math.random() * quoteLibrary.length);
             const newQuote = quoteLibrary[randomIndex];
-            
-            // 更新文字
             quoteDisplay.textContent = newQuote;
             
-            // 添加淡入动画（先移除再添加，保证每次点击都触发）
             quoteCard.classList.remove('fade-in');
-            void quoteCard.offsetWidth;  // 强制重绘，技巧
+            void quoteCard.offsetWidth;
             quoteCard.classList.add('fade-in');
         }
 
-        // 初次加载时显示一句随机语录
         generateRandomQuote();
-
-        // 🖱️ 按钮点击事件
         generateBtn.addEventListener('click', generateRandomQuote);
+        generateBtn.addEventListener('touchstart', function(e) {}, { passive: true });
 
-        // （可选）移动端触摸反馈优化，防止双击缩放干扰
-        generateBtn.addEventListener('touchstart', function(e) {
-            // 只需保留默认视觉反馈，无需额外代码
-        }, { passive: true });
+        // 🫧 动态生成玻璃泡泡 —— 完全随机，每次刷新都不同
+        function createBubbles() {
+            const container = document.getElementById('bubbleContainer');
+            const bubbleCount = 24;  // 泡泡数量，足够充盈但不密集
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                // 随机尺寸：20px ~ 160px，有大有小更生动
+                const size = Math.floor(Math.random() * 140) + 20;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                
+                // 随机位置：覆盖全屏
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.top = Math.random() * 100 + '%';
+                
+                // 随机动画时长：20s ~ 50s，非常缓慢
+                const duration = Math.floor(Math.random() * 30) + 25;
+                bubble.style.animationDuration = duration + 's';
+                
+                // 随机动画延迟：0s ~ 15s，错开节奏
+                bubble.style.animationDelay = Math.random() * 15 + 's';
+                
+                // 随机透明度范围：0.2 ~ 0.45，保持极淡
+                bubble.style.opacity = Math.random() * 0.25 + 0.18;
+                
+                // 极少数泡泡带极淡的暖色调倾向
+                if (i % 5 === 0) {
+                    bubble.style.background = 'rgba(255, 225, 210, 0.25)';
+                } else if (i % 7 === 0) {
+                    bubble.style.background = 'rgba(235, 225, 245, 0.22)';
+                }
+                
+                container.appendChild(bubble);
+            }
+        }
 
+        // 页面加载时生成泡泡
+        createBubbles();
+
+        // 可选：每60秒微调一次泡泡位置？不需要，CSS动画一直在动
+        // 保持静态DOM，动画永不停止
     </script>
 </body>
 </html>
