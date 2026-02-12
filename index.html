@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>柔光句 · 泡泡花园</title>
+    <title>柔光句 · 名人哲思</title>
     <style>
         /* 🌿 莫兰迪低饱和基底 —— 暖调米白，带极淡渐变 */
         * {
@@ -32,7 +32,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;  /* 泡泡不阻挡点击 */
+            pointer-events: none;
             z-index: 1;
             overflow: hidden;
         }
@@ -40,14 +40,14 @@
         /* 🫧 单个泡泡 —— 玻璃态核心元素 */
         .bubble {
             position: absolute;
-            background: rgba(255, 245, 235, 0.28);  /* 极透玻璃白 */
+            background: rgba(255, 245, 235, 0.28);
             backdrop-filter: blur(3px);
             -webkit-backdrop-filter: blur(3px);
             border-radius: 50%;
             box-shadow: 
-                inset 0 0 15px rgba(255, 255, 255, 0.6),  /* 内发光，玻璃感 */
-                0 8px 25px rgba(160, 130, 100, 0.08),     /* 外阴影，轻盈 */
-                0 0 0 0.5px rgba(255, 255, 255, 0.3);      /* 极细边缘光 */
+                inset 0 0 15px rgba(255, 255, 255, 0.6),
+                0 8px 25px rgba(160, 130, 100, 0.08),
+                0 0 0 0.5px rgba(255, 255, 255, 0.3);
             animation: floatSlow linear infinite;
             will-change: transform, width, height, opacity;
         }
@@ -87,30 +87,30 @@
             justify-content: center;
             gap: 32px;
             position: relative;
-            z-index: 10;  /* 确保在泡泡上方 */
+            z-index: 10;
         }
 
         /* 🥛 玻璃态卡片 —— 强化微光边缘 */
         .quote-card {
             width: 100%;
-            background: rgba(255, 247, 240, 0.7);  /* 稍提高不透明度，在泡泡前更清晰 */
+            background: rgba(255, 247, 240, 0.7);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border-radius: 48px 48px 48px 24px;
-            padding: 40px 28px;
+            padding: 40px 28px 60px 28px;  /* 下边距增加，为署名留空间 */
             box-shadow: 
                 0 25px 40px -12px rgba(140, 110, 90, 0.12),
                 0 8px 15px -8px rgba(120, 90, 70, 0.05),
                 inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-                inset 0 0 20px rgba(255, 255, 245, 0.4);  /* 增加内微光 */
+                inset 0 0 20px rgba(255, 255, 245, 0.4);
             border: none;
             transition: all 0.3s ease;
             word-wrap: break-word;
             min-height: 220px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
             position: relative;
-            /* 卡片自身也有极淡的闪烁光晕 */
             animation: cardGlow 8s ease-in-out infinite;
         }
 
@@ -119,6 +119,7 @@
             50% { box-shadow: 0 30px 50px -12px rgba(150, 120, 100, 0.18), inset 0 0 0 1.5px rgba(255, 255, 255, 0.9), inset 0 0 30px rgba(255, 245, 235, 0.6); }
         }
 
+        /* 语录正文 */
         .quote-text {
             font-size: 26px;
             line-height: 1.4;
@@ -131,9 +132,32 @@
             text-shadow: 0 2px 8px rgba(170, 140, 110, 0.1);
             position: relative;
             z-index: 2;
+            padding: 0 8px;
         }
 
-        /* 🖱️ 大按钮 —— 更蓬松、更有按压欲 */
+        /* 📝 名人署名 —— 优雅灰、右下角、小字号 */
+        .quote-author {
+            position: absolute;
+            bottom: 24px;
+            right: 28px;
+            font-size: 16px;
+            font-weight: 350;
+            color: #b3a69c;  /* 莫兰迪暖灰 */
+            font-family: 'Quicksand', 'Georgia', serif;
+            letter-spacing: 0.5px;
+            opacity: 0.75;
+            font-style: normal;
+            z-index: 3;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+            transition: opacity 0.2s ease;
+        }
+
+        /* 卡片悬停时署名稍微明显一点 */
+        .quote-card:hover .quote-author {
+            opacity: 0.9;
+        }
+
+        /* 🖱️ 大按钮 */
         .action-button {
             background: rgba(238, 222, 212, 0.75);
             backdrop-filter: blur(16px);
@@ -159,7 +183,6 @@
             transform: scale(1);
             position: relative;
             z-index: 15;
-            /* 蓬松悬浮感 */
             text-shadow: 0 2px 5px rgba(255, 255, 255, 0.5);
         }
 
@@ -210,22 +233,24 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@350;450;550&display=swap');
 
-        /* 响应式微调 */
         @media (max-width: 400px) {
             .quote-text { font-size: 22px; }
             .action-button { padding: 20px 36px; font-size: 22px; letter-spacing: 6px; }
+            .quote-author { bottom: 20px; right: 24px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
-    <!-- 🫧 漂浮泡泡群 —— 纯CSS动画，缓慢、时大时小、玻璃质感 -->
+    <!-- 🫧 漂浮泡泡群 -->
     <div class="bubble-container" id="bubbleContainer"></div>
 
     <div class="container">
         <div class="quote-card" id="quoteCard">
             <div class="quote-text" id="quoteDisplay">
-                今日份的柔光句子
+                今日份的名人哲思
             </div>
+            <!-- 名人署名将动态显示在这里 -->
+            <span class="quote-author" id="authorDisplay"></span>
         </div>
 
         <button class="action-button" id="generateBtn">
@@ -233,77 +258,225 @@
         </button>
         
         <div class="tiny-credit">
-            日常哲思 · 柔软供应
+            名人语录 · 温柔力量
         </div>
     </div>
 
     <script>
-        // 🌟 正能量语录库（保持原味）
+        // 📚 世界名人语录 · 150条精选（正文+作者分离）
         const quoteLibrary = [
-            "你今天也很好看，顺便温柔。",
-            "慢慢来，太阳会找到云的。",
-            "柔软的心，终会遇见柔软的事。",
-            "记得休息，记得开心。",
-            "你已经做得很好了。",
-            "风很慢，所以你可以慢慢走。",
-            "今天的不开心，到此为止。",
-            "微小而确实的幸福，存在。",
-            "像猫咪一样，只取悦自己。",
-            "你本身，就是一份礼物。",
-            "允许一切，如其所是。",
-            "按时长大，不定期可爱。",
-            "不是所有事，都必须有意义。",
-            "今天也要拥抱一点无用之美。",
-            "你比想象中，更值得被温柔对待。"
+            // 文学巨匠 · 30条
+            { text: "生活总是让我们遍体鳞伤，但后来，那些受伤的地方会变成我们最强壮的地方。", author: "海明威" },
+            { text: "幸福，不是活成别人那样，而是能够听从自己内心的声音。", author: "梭罗" },
+            { text: "如果你认识从前的我，也许你会原谅现在的我。", author: "张爱玲" },
+            { text: "世界上只有一种真正的英雄主义，那就是在认清生活真相后依然热爱生活。", author: "罗曼·罗兰" },
+            { text: "愿你慢慢长大，愿你有好运，如果没有，希望你在不幸中学会慈悲。", author: "刘瑜" },
+            { text: "凌晨四点钟，我看见海棠花未眠。", author: "川端康成" },
+            { text: "我的心是旷野的鸟，在你的眼里找到了天空。", author: "泰戈尔" },
+            { text: "所有的大人都曾经是小孩，虽然，只有少数人记得。", author: "圣埃克苏佩里" },
+            { text: "不乱于心，不困于情。不畏将来，不念过往。", author: "丰子恺" },
+            { text: "人间有味是清欢。", author: "苏轼" },
+            { text: "黑夜无论怎样悠长，白昼总会到来。", author: "莎士比亚" },
+            { text: "一个人只拥有此生此世是不够的，他还应该拥有诗意的世界。", author: "王小波" },
+            { text: "如果你驯养了我，我们就会彼此需要。对我来说，你就是世界上唯一的了。", author: "圣埃克苏佩里" },
+            { text: "记忆是一种相见的方式。", author: "纪伯伦" },
+            { text: "草在结它的种子，风在摇它的叶子。我们站着，不说话，就十分美好。", author: "顾城" },
+            { text: "岁月不饶人，我亦未曾饶过岁月。", author: "木心" },
+            { text: "你来人间一趟，你要看看太阳。", author: "海子" },
+            { text: "秋天的风都是从往年的秋天吹来的。", author: "木心" },
+            { text: "世间所有的相遇，都是久别重逢。", author: "白落梅" },
+            { text: "喜欢是乍见之欢，爱是久处不厌。", author: "佚名" },
+            { text: "我曾踏月而来，只因你在山中。", author: "席慕蓉" },
+            { text: "你若爱，生活哪里都可爱。", author: "丰子恺" },
+            { text: "每一个微笑的背后，都有一个厌倦的哈欠。", author: "巴尔扎克" },
+            { text: "孤独的人有他们自己的泥沼。", author: "张爱玲" },
+            { text: "爱自己是终身浪漫的开始。", author: "王尔德" },
+            { text: "生活在别处。", author: "兰波" },
+            { text: "冬天来了，春天还会远吗？", author: "雪莱" },
+            { text: "读书多了，容颜自然改变。", author: "三毛" },
+            { text: "花开如火，也如寂寞。", author: "顾城" },
+            { text: "月光还是少年的月光，九州一色还是李白的霜。", author: "余光中" },
+
+            // 哲学智者 · 25条
+            { text: "我们知道的越多，就越发现自己无知。", author: "苏格拉底" },
+            { text: "幸福是把灵魂安放在最适当的位置。", author: "亚里士多德" },
+            { text: "你生而有翼，为何竟愿一生匍匐前行，形如虫蚁？", author: "鲁米" },
+            { text: "成为你自己，那个你从未刻意成为的自己。", author: "尼采" },
+            { text: "未经审视的人生不值得过。", author: "苏格拉底" },
+            { text: "时间是吞噬一切的无底洞。", author: "奥维德" },
+            { text: "人是一根会思考的芦苇。", author: "帕斯卡" },
+            { text: "存在先于本质。", author: "萨特" },
+            { text: "他人即地狱。", author: "萨特" },
+            { text: "在这个世界上，再没有比去走一条别人从未走过的路更令人心动。", author: "克尔凯郭尔" },
+            { text: "我思故我在。", author: "笛卡尔" },
+            { text: "人是生而自由的，却无往不在枷锁之中。", author: "卢梭" },
+            { text: "有两种东西，我对它们的思考越是深沉和持久，它们在我心灵中唤起的惊奇和敬畏就越日新月异：一是头顶的星空，一是心中的道德律。", author: "康德" },
+            { text: "凡是不能毁灭我的，必使我更强大。", author: "尼采" },
+            { text: "向死而生的意义是：当你无限接近死亡，才能深切体会生的意义。", author: "海德格尔" },
+            { text: "爱不是相互凝视，而是一起望向同一个方向。", author: "圣埃克苏佩里" },
+            { text: "幸福不过是欲望的暂时停止。", author: "叔本华" },
+            { text: "我们一直寻找的，却是自己原本早已拥有的。", author: "柏拉图" },
+            { text: "智者说话，是因为他们有话要说；愚者说话，则是因为他们想说。", author: "柏拉图" },
+            { text: "如果你要驯服一个人，就要冒着掉眼泪的危险。", author: "圣埃克苏佩里" },
+            { text: "所谓理解，通常不过是误解的总和。", author: "村上春树" },
+            { text: "不必太纠结于当下，也不必太忧虑未来，当你经历过一些事情的时候，眼前的风景已经和从前不一样了。", author: "村上春树" },
+            { text: "且听风吟，静待花开。", author: "村上春树" },
+            { text: "痛苦是永恒的，但伤口会愈合。", author: "荷马" },
+            { text: "希望是噩梦中最美的梦。", author: "伏尔泰" },
+
+            // 科学天才 · 20条
+            { text: "想象力比知识更重要。", author: "爱因斯坦" },
+            { text: "生活就像骑自行车，想保持平衡就得往前走。", author: "爱因斯坦" },
+            { text: "不要努力成为一个成功者，要努力成为一个有价值的人。", author: "爱因斯坦" },
+            { text: "提出一个问题往往比解决一个问题更重要。", author: "爱因斯坦" },
+            { text: "有两种看待世界的方式，一是觉得凡事都是奇迹，一是觉得凡事都不是奇迹。", author: "爱因斯坦" },
+            { text: "上帝不掷骰子。", author: "爱因斯坦" },
+            { text: "追求真理比占有真理更可贵。", author: "爱因斯坦" },
+            { text: "耐心和恒心总会得到报酬。", author: "爱因斯坦" },
+            { text: "我没有特别的才能，只有强烈的好奇心。", author: "爱因斯坦" },
+            { text: "科学没有国界，但科学家有祖国。", author: "巴斯德" },
+            { text: "在科学上，每一条道路都应该走一走。", author: "爱因斯坦" },
+            { text: "真理的大海，让未发现的一切事物躺卧在我的眼前。", author: "牛顿" },
+            { text: "如果我比别人看得更远，那是因为我站在巨人的肩膀上。", author: "牛顿" },
+            { text: "我能计算天体的轨道，却无法计算人性的疯狂。", author: "牛顿" },
+            { text: "机会只偏爱有准备的头脑。", author: "巴斯德" },
+            { text: "怀疑是智慧的源泉。", author: "笛卡尔" },
+            { text: "简单是终极的复杂。", author: "达·芬奇" },
+            { text: "细节就是细节，它们决定了完美。", author: "达·芬奇" },
+            { text: "学习是唯一不会被浪费的投资。", author: "居里夫人" },
+            { text: "生活中没有什么可怕的事物，只有需要理解的事物。", author: "居里夫人" },
+
+            // 艺术家 & 创作者 · 20条
+            { text: "色彩是琴键，眼睛是琴槌，灵魂是钢琴。", author: "康定斯基" },
+            { text: "我梦见我的画，然后我画我的梦。", author: "梵高" },
+            { text: "伟大的作品不是靠力量，而是靠坚持完成的。", author: "约翰逊" },
+            { text: "艺术是使平常事物变得不平凡。", author: "杜尚" },
+            { text: "简洁是智慧的灵魂。", author: "莎士比亚" },
+            { text: "美是真理，真理是美。", author: "济慈" },
+            { text: "音乐是灵魂的避难所。", author: "贝多芬" },
+            { text: "我要扼住命运的咽喉。", author: "贝多芬" },
+            { text: "艺术是生活的镜子。", author: "托尔斯泰" },
+            { text: "建筑是凝固的音乐。", author: "歌德" },
+            { text: "电影是每秒24格的真理。", author: "戈达尔" },
+            { text: "诗歌是翻译中失去的东西。", author: "弗罗斯特" },
+            { text: "舞蹈是无声的诗。", author: "西蒙尼德斯" },
+            { text: "设计是恒久的，不是潮流的。", author: "伊姆斯" },
+            { text: "时尚是品味，不是金钱。", author: "香奈儿" },
+            { text: "每一个画家画自己。", author: "毕加索" },
+            { text: "艺术洗去灵魂日常生活的尘埃。", author: "毕加索" },
+            { text: "我花了四年学会像拉斐尔那样画画，却花了一生学会像孩子那样画画。", author: "毕加索" },
+            { text: "戏剧是人生的缩影。", author: "莎士比亚" },
+            { text: "世界是一个舞台，所有的男男女女不过是一些演员。", author: "莎士比亚" },
+
+            // 东方智慧 · 25条
+            { text: "上善若水，水善利万物而不争。", author: "老子" },
+            { text: "知者乐水，仁者乐山。", author: "孔子" },
+            { text: "己所不欲，勿施于人。", author: "孔子" },
+            { text: "学而时习之，不亦乐乎。", author: "孔子" },
+            { text: "三人行，必有我师焉。", author: "孔子" },
+            { text: "道可道，非常道；名可名，非常名。", author: "老子" },
+            { text: "大音希声，大象无形。", author: "老子" },
+            { text: "千里之行，始于足下。", author: "老子" },
+            { text: "祸兮福之所倚，福兮祸之所伏。", author: "老子" },
+            { text: "非淡泊无以明志，非宁静无以致远。", author: "诸葛亮" },
+            { text: "静以修身，俭以养德。", author: "诸葛亮" },
+            { text: "山重水复疑无路，柳暗花明又一村。", author: "陆游" },
+            { text: "采菊东篱下，悠然见南山。", author: "陶渊明" },
+            { text: "行到水穷处，坐看云起时。", author: "王维" },
+            { text: "人生到处知何似，应似飞鸿踏雪泥。", author: "苏轼" },
+            { text: "小舟从此逝，江海寄余生。", author: "苏轼" },
+            { text: "一蓑烟雨任平生。", author: "苏轼" },
+            { text: "此心安处是吾乡。", author: "苏轼" },
+            { text: "本来无一物，何处惹尘埃。", author: "慧能" },
+            { text: "春有百花秋有月，夏有凉风冬有雪。若无闲事挂心头，便是人间好时节。", author: "无门慧开" },
+            { text: "一花一世界，一叶一菩提。", author: "佚名" },
+            { text: "心安即是归处。", author: "白居易" },
+            { text: "海纳百川，有容乃大。", author: "林则徐" },
+            { text: "宠辱不惊，看庭前花开花落。", author: "菜根谭" },
+            { text: "路漫漫其修远兮，吾将上下而求索。", author: "屈原" },
+
+            // 现当代智者 · 30条
+            { text: "做你自己，因为别人都有人做了。", author: "王尔德" },
+            { text: "别怕，据我所知，大多数你害怕的事都不会发生。", author: "马克·吐温" },
+            { text: "永远像明天就会死去那样去生活。", author: "史蒂夫·乔布斯" },
+            { text: "你的时间有限，不要浪费于重复他人的生活。", author: "史蒂夫·乔布斯" },
+            { text: "坚持不下去的时候，再坚持一下。", author: "村上春树" },
+            { text: "当你穿过了暴风雨，你就不再是原来那个人。", author: "村上春树" },
+            { text: "不必太在意旁人的目光，因为根本没人在看你。", author: "松浦弥太郎" },
+            { text: "今天不想跑，所以才去跑。", author: "村上春树" },
+            { text: "先变成更喜欢的自己，再遇见一个不需要取悦的人。", author: "卢思浩" },
+            { text: "愿你眼中总有光芒，活成你想要的模样。", author: "独木舟" },
+            { text: "慢慢来，谁不是翻山越岭去相爱。", author: "朱肖影" },
+            { text: "愿你即使单枪匹马，也勇敢无畏。", author: "佚名" },
+            { text: "最好的状态是：眼里写满了故事，脸上却不见风霜。", author: "佚名" },
+            { text: "生活原本沉闷，但跑起来就有风。", author: "佚名" },
+            { text: "别让生活磨平了你的棱角，是你收起了锋芒。", author: "佚名" },
+            { text: "温柔是宝藏，你也是。", author: "佚名" },
+            { text: "你笑起来真像好天气。", author: "简媜" },
+            { text: "我们都要把自己照顾好，好到遗憾无法打扰。", author: "佚名" },
+            { text: "好好生活，慢慢相遇。", author: "佚名" },
+            { text: "保持热爱，奔赴山海。", author: "佚名" },
+            { text: "凡心所向，素履以往。", author: "七堇年" },
+            { text: "生如逆旅，一苇以航。", author: "七堇年" },
+            { text: "愿有人陪你颠沛流离，如果没有，愿你成为自己的太阳。", author: "卢思浩" },
+            { text: "知足且上进，温柔而坚定。", author: "佚名" },
+            { text: "要在触手可及的时间里热情摇荡，燃烧一往无前地发光。", author: "德卡先生" },
+            { text: "万物皆有裂痕，那是光照进来的地方。", author: "莱昂纳德·科恩" },
+            { text: "无论你去往何方，天气如何，记得带上阳光。", author: "佚名" },
+            { text: "给时间时间，让过去过去，让开始开始。", author: "佚名" },
+            { text: "总会有人，山高路远，为你而来。", author: "佚名" },
+            { text: "你只管善良，上天自有衡量。", author: "佚名" }
         ];
 
         const quoteDisplay = document.getElementById('quoteDisplay');
+        const authorDisplay = document.getElementById('authorDisplay');
         const generateBtn = document.getElementById('generateBtn');
         const quoteCard = document.getElementById('quoteCard');
 
         function generateRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quoteLibrary.length);
-            const newQuote = quoteLibrary[randomIndex];
-            quoteDisplay.textContent = newQuote;
+            const quote = quoteLibrary[randomIndex];
             
+            // 显示语录正文
+            quoteDisplay.textContent = quote.text;
+            
+            // 显示署名：括号格式，浅灰色右下角
+            authorDisplay.textContent = `${quote.author}`;
+            
+            // 淡入动画
             quoteCard.classList.remove('fade-in');
             void quoteCard.offsetWidth;
             quoteCard.classList.add('fade-in');
         }
 
+        // 首次加载显示随机语录
         generateRandomQuote();
+        
+        // 按钮点击事件
         generateBtn.addEventListener('click', generateRandomQuote);
         generateBtn.addEventListener('touchstart', function(e) {}, { passive: true });
 
-        // 🫧 动态生成玻璃泡泡 —— 完全随机，每次刷新都不同
+        // 🫧 动态生成玻璃泡泡
         function createBubbles() {
             const container = document.getElementById('bubbleContainer');
-            const bubbleCount = 24;  // 泡泡数量，足够充盈但不密集
+            const bubbleCount = 24;
             
             for (let i = 0; i < bubbleCount; i++) {
                 const bubble = document.createElement('div');
                 bubble.className = 'bubble';
                 
-                // 随机尺寸：20px ~ 160px，有大有小更生动
                 const size = Math.floor(Math.random() * 140) + 20;
                 bubble.style.width = size + 'px';
                 bubble.style.height = size + 'px';
                 
-                // 随机位置：覆盖全屏
                 bubble.style.left = Math.random() * 100 + '%';
                 bubble.style.top = Math.random() * 100 + '%';
                 
-                // 随机动画时长：20s ~ 50s，非常缓慢
                 const duration = Math.floor(Math.random() * 30) + 25;
                 bubble.style.animationDuration = duration + 's';
-                
-                // 随机动画延迟：0s ~ 15s，错开节奏
                 bubble.style.animationDelay = Math.random() * 15 + 's';
-                
-                // 随机透明度范围：0.2 ~ 0.45，保持极淡
                 bubble.style.opacity = Math.random() * 0.25 + 0.18;
                 
-                // 极少数泡泡带极淡的暖色调倾向
                 if (i % 5 === 0) {
                     bubble.style.background = 'rgba(255, 225, 210, 0.25)';
                 } else if (i % 7 === 0) {
@@ -314,11 +487,7 @@
             }
         }
 
-        // 页面加载时生成泡泡
         createBubbles();
-
-        // 可选：每60秒微调一次泡泡位置？不需要，CSS动画一直在动
-        // 保持静态DOM，动画永不停止
     </script>
 </body>
 </html>
